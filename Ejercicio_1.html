@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario en Tarjeta</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card-container {
+            max-width: 600px;
+            margin: auto;
+            margin-top: 50px;
+        }
+        .card {
+            padding: 20px;
+        }
+        .btn-wide {
+            width: 100%;
+        }
+        .input-dark-bg {
+            background-color: #c6c6c699; /* Gris oscuro */
+            
+        }
+        .bt-dark{
+            background-color: rgb(21, 39, 53);
+        }
+        .bt-dark:hover{
+            background-color: rgb(67, 252, 0);
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container card-container">
+    <div class="card shadow">
+        <div class="card-body">
+            <h2 class="card-title" style="text-align: center;">Contactate con ventas</h2>
+            <p style="text-align: center;" >Ingresa tus datos y deja un mensaje para que nuestra gerencia de ventas
+                se contacte contigo
+            </p>
+            <br>
+            <form>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="firstName">Nombre</label>
+                        <input type="text" class="form-control input-dark-bg" id="firstName" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="lastName">Apellido</label>
+                        <input type="text" class="form-control input-dark-bg" id="lastName" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="email">Correo laboral</label>
+                    <input type="text" class="form-control input-dark-bg" id="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="message">Mensaje</label>
+                    <textarea class="form-control input-dark-bg" id="message" rows="4"  required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-wide bt-dark">Enviar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Enlace al JavaScript de Bootstrap y dependencias (opcional para algunas funcionalidades) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
