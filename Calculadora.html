@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculadora Simple</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 10px;
+    }
+  
+    .calculator {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 350px;
+    }
+  
+    .screen {
+      background-color: #f1f3f5;
+      padding: 15px;
+      font-size: 2rem;
+      text-align: right;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      word-wrap: break-word;
+      min-height: 60px;
+    }
+  
+    button {
+      font-size: 1.3rem;
+    }
+  </style>
+  
+</head>
+<body>
+  <div class="calculator">
+    <div id="screen" class="screen">0</div>
+
+    <div class="row g-2 mb-2">
+      <div class="col-3"><button class="btn btn-light w-100" onclick="appendNumber(7)">7</button></div>
+      <div class="col-3"><button class="btn btn-light w-100" onclick="appendNumber(8)">8</button></div>
+      <div class="col-3"><button class="btn btn-light w-100" onclick="appendNumber(9)">9</button></div>
+      <div class="col-3"><button class="btn btn-warning w-100" onclick="clearScreen()">C</button></div>
+    </div>
+
+    <div class="row g-2 mb-2">
+      <div class="col-3"><button class="btn btn-light w-100" onclick="appendNumber(4)">4</button></div>
+      <div class="col-3"><button class="btn btn-light w-100" onclick="appendNumber(5)">5</button></div>
+      <div class="col-3"><button class="btn btn-light w-100" onclick="appendNumber(6)">6</button></div>
+      <div class="col-3"><button class="btn btn-danger w-100" onclick="operate('/')">/</button></div>
+    </div>
+
+    <div class="row g-2 mb-2">
+      <div class="col-3"><button class="btn btn-light w-100" onclick="appendNumber(1)">1</button></div>
+      <div class="col-3"><button class="btn btn-light w-100" onclick="appendNumber(2)">2</button></div>
+      <div class="col-3"><button class="btn btn-light w-100" onclick="appendNumber(3)">3</button></div>
+      <div class="col-3"><button class="btn btn-danger w-100" onclick="operate('*')">*</button></div>
+    </div>
+
+    <div class="row g-2 mb-2">
+      <div class="col-3"><button class="btn btn-light w-100" onclick="appendNumber(0)">0</button></div>
+      <div class="col-3"><button class="btn btn-light w-100" onclick="appendNumber('.')">.</button></div>
+      <div class="col-3"><button class="btn btn-success w-100" onclick="calculate()">=</button></div>
+      <div class="col-3"><button class="btn btn-danger w-100" onclick="operate('-')">-</button></div>
+    </div>
+
+    <div class="row g-2 mb-2">
+      <div class="col-6"><button class="btn btn-danger w-100" onclick="operate('+')">+</button></div>
+      <div class="col-6"><button class="btn btn-primary w-100" onclick="toggleTheme()">Toggle Theme</button></div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Funciones -->
+  <script>
+    let screen = document.getElementById('screen');
+    let currentInput = '';
+    let expression = '';
+  
+    // Conversor a String
+    function appendNumber(number) {
+      currentInput += number.toString();
+      expression += number.toString();
+      updateScreen();
+    }
+  
+
+    function operate(op) {
+      if (currentInput === '' && expression === '') return;
+  
+      if (['+', '-', '*', '/'].includes(expression.slice(-1))) {
+        
+        expression = expression.slice(0, -1) + op;
+      } else {
+        expression += op;
+      }
+      currentInput = '';
+      updateScreen();
+    }
+
+    // Para usar las teclas del teclado
+    document.addEventListener('keydown', (event) => {
+    const key = event.key;
+
+    if (!isNaN(key) || key === '.') {
+        appendNumber(key);
+    } else if (['+', '-', '*', '/'].includes(key)) {
+        operate(key);
+    } else if (key === 'Enter' || key === '=') {
+        event.preventDefault(); 
+        calculate();
+    } else if (key === 'Backspace') {
+        expression = expression.slice(0, -1);
+        updateScreen();
+    } else if (key === 'Escape') {
+        clearScreen();
+    }
+    });
+
+    // Calculo
+    function calculate() {
+      try {
+        let result = eval(expression);
+        expression = result.toString();
+        currentInput = '';
+        updateScreen();
+      } catch (e) {
+        expression = 'Error';
+        currentInput = '';
+        updateScreen();
+      }
+    }
+    
+    // Funciones de limpieza, actualización y cambio de tema
+    function clearScreen() {
+      currentInput = '';
+      expression = '';
+      updateScreen();
+    }
+  
+    function updateScreen() {
+      screen.textContent = expression || '0';
+    }
+  
+    function toggleTheme() {
+      document.body.classList.toggle('bg-dark');
+      document.querySelector('.calculator').classList.toggle('bg-dark');
+    }
+
+    
+  </script>
+  
+</body>
+</html>
